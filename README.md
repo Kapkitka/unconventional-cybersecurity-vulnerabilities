@@ -14,7 +14,7 @@ Aspekt badawczy koncentruje się na fizycznej reprodukcji trzech różnych metod
 To repozytorium zawiera pełną implementację inżynieryjną typu „zrób to sam”, zoptymalizowaną pod kątem niskich kosztów, demonstrującą wykonalność ataków masowych:
 * **`/experiment-01`, `/experiment-02`, `/experiment-03`** – Nagrania audio i zbiory danych wygenerowane podczas eksperymentów, umożliwiające pełną odtwarzalność wyników.
 
-# Eksperyment 01: Wykorzystanie bioakustyczne (biohybrydowe urządzenie wstrzykujące)
+# Eksperyment 01: Implantowe urządzenie wywiadowcze
 
 Ten folder zawiera zbiór danych, zrekonstruowane nagrania audio oraz spektrogramy wizualne dotyczące **Eksperymentu 01**, w ramach którego oceniano nieuprawnione odzyskiwanie sygnałów audio za pomocą biohybrydowego urządzenia wstrzykującego symulującego implant umieszczony w żelu balistycznym.
 
@@ -49,9 +49,9 @@ Dane zebrane w kontrolowanych warunkach wewnętrznych, podzielone na dwie zmienn
 * **Format audio:** Bezstratny format pliku audio Waveform (`.wav`)
 * **Format wizualizacji:** Spektrogramy w formacie Portable Network Graphics (`.png`) do weryfikacji sygnatury akustycznej.
 
-# Eksperyment 02: 
+# Eksperyment 02: Mikrofon wizualny
 
-# Eksperyment 03: Przekształcenie elektrodynamiczne (wykorzystanie głośnika jako mikrofonu)
+# Eksperyment 03: Konwersja głośnika w mikrofon
 
 Ten folder zawiera prototypy inżynieryjne, kod źródłowy oraz dane eksperymentalne dotyczące **Eksperymentu 03**. Badania pokazują, w jaki sposób standardowe głośniki można przekształcić w mikrofony przy użyciu niedrogich mikrokontrolerów (Arduino Uno) i podstawowych wzmacniaczy operacyjnych.
 
