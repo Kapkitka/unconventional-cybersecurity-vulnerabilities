@@ -52,3 +52,44 @@ Data collected under controlled indoor conditions, split into two experimental v
 ## Technical Details
 * **Audio Format:** Lossless Waveform Audio file format (`.wav`)
 * **Visualization Format:** Portable Network Graphics (`.png`) spectrograms for acoustic signature verification.
+
+# Experiment 02: 
+
+# Experiment 03: Electrodynamic Retasking (Speaker-to-Microphone Exploit)
+
+This folder contains the engineering prototypes, source code, and experimental data for **Experiment 03**. The research demonstrates how standard loudspeakers can be surreptitiously repurposed as microphones using budget microcontrollers (Arduino Uno) and basic operational amplifiers.
+
+## Project Overview
+The experiment investigates the feasibility of intercepting acoustic signals by exploiting the electrodynamic properties of speakers. By utilizing a custom-built signal conditioning circuit and optimized ADC (Analog-to-Digital Converter) settings on an Arduino Uno, we demonstrate that speakers can capture intelligible audio.
+
+## Repository Contents
+
+### 1. /Programs
+Hardware and software implementation:
+* `sketch_apr30a.ino`: Arduino firmware configured with a custom ADC prescaler and high-speed sampling settings necessary for high-frequency audio reconstruction.
+* `main.py`: A Python-based terminal application used to interface with the hardware, process the incoming bitstream, and save the reconstructed audio.
+
+### 2. /Records & /Spectrograms
+The data is divided into two research phases:
+
+#### Phase 1: Transducer and Op-Amp Comparative Analysis
+Located in `/Speaker_1`, `/Speaker_2`, and `/Speaker_3`. This phase evaluates the efficiency of three different loudspeakers acting as microphones.
+* **Hardware Variables:** * **Op-Amps:** LM358 (General purpose) vs. MCP6002 (Modern Rail-to-Rail).
+    * **Configurations:** Inverting vs. Non-inverting.
+* **Naming Convention:** `[OpAmp]_[Config]_[Signal].wav`
+    * *Example:* `LM_invert_conversation.wav` (LM358, Inverting config, Speech signal).
+
+#### Phase 2: Effective Range and Distance Feasibility
+Located in `/Distance`. This phase focuses on the most stable transducer (Speaker 2) to determine the maximum distance for intelligible signal recovery.
+* **Testing Parameters:** Distances of 5, 150, 300, and 600 cm.
+* **Configuration:** Exclusively non-inverting (based on Phase 1 optimization).
+* **Naming Convention:** `[OpAmp]_noninvert_[Signal]_[Distance].wav`
+    * *Example:* `MCP_noninvert_chirp_300.wav` (MCP6002 at 3 meters).
+
+### 3. /Sample
+Contains the original reference signals used as the audio source during experiments (`chirp`, `tone`, `conversation`), ensuring consistency across Experiment 01 and 03.
+
+## Key Research Goals
+* **Bandwidth Analysis:** Using 50 Hz – 10 kHz chirps to identify frequency response limits.
+* **Intelligibility Assessment:** Evaluating the clarity of human speech captured via the electrodynamic exploit.
+* **Hardware Optimization:** Quantifying how the choice of operational amplifier and circuit topology affects the range of unauthorized eavesdropping.
