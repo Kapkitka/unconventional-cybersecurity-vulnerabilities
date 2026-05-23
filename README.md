@@ -1,3 +1,96 @@
+# Niekonwencjonalne luki cyberbezpieczeństwa - nieautoryzowana rekonstrukcja sygnałów poprzez exploity bioakustyczne, optyczne i elektrodynamiczne
+--- 🇬🇧 For English version scroll down ---
+
+## Omówienie projektu
+W niniejszej pracy przeanalizowano trzy niekonwencjonalne ataki typu side-channel, które umożliwiają przechwytywanie sygnałów audio bez konieczności stosowania tradycyjnych metod inwigilacji. Celem jest empiryczna ocena wykonalności tych wektorów ataku w warunkach domowych przy użyciu niedrogich narzędzi typu „zrób to sam” (DIY) oraz przedstawienie pierwszej systematycznej charakterystyki porównawczej pod kątem jakości odtworzonych sygnałów audio, ich zrozumiałości oraz praktycznej wykonalności.
+
+## Wektory ataku
+Aspekt badawczy koncentruje się na fizycznej reprodukcji trzech różnych metod:
+* **Exploit bioakustyczny:** Biohybrydowe urządzenie iniekcyjne do gromadzenia danych z symulowanego implantu w żelu balistycznym, w tym analiza czynników zewnętrznych.
+* **Exploit optyczny:** Optyczna reprodukcja dźwięku poprzez rekonstrukcję mikrowibracji powierzchniowych na podstawie nagrań wideo o wysokiej częstotliwości i ekstrakcji sygnału audio.
+* **Exploit elektrodynamiczny:** Zmiana przeznaczenia złączy audio w celu przekształcenia standardowego głośnika w mikrofon zdolny do przechwytywania dźwięku.
+
+## Inżynieria i zawartość repozytorium
+To repozytorium zawiera pełną implementację inżynieryjną typu „zrób to sam”, zoptymalizowaną pod kątem niskich kosztów, demonstrującą wykonalność ataków masowych:
+* **`/experiment-01`, `/experiment-02`, `/experiment-03`** – Nagrania audio i zbiory danych wygenerowane podczas eksperymentów, umożliwiające pełną odtwarzalność wyników.
+
+# Eksperyment 01: Wykorzystanie bioakustyczne (biohybrydowe urządzenie wstrzykujące)
+
+Ten folder zawiera zbiór danych, zrekonstruowane nagrania audio oraz spektrogramy wizualne dotyczące **Eksperymentu 01**, w ramach którego oceniano nieuprawnione odzyskiwanie sygnałów audio za pomocą biohybrydowego urządzenia wstrzykującego symulującego implant umieszczony w żelu balistycznym.
+
+## Struktura katalogów i nazewnictwo zbioru danych
+
+Zbiór danych jest ściśle podzielony na trzy główne kategorie: `Sample`, `Inside` (kontrolowane środowisko wewnętrzne) oraz `Outside` (warunki środowiskowe na zewnątrz).
+
+### 1. /Sample
+Zawiera oryginalne sygnały źródłowe odtwarzane podczas eksperymentu, które mają zostać przechwycone przez symulowany implant audio wewnątrz konfiguracji fantomowej.
+* **`/Records`**: 3 referencyjne pliki audio (`chirp.wav`, `conversation.wav`, `tone.wav`).
+* **`/Spectrograms`**: Wizualne przedstawienia analizy częstotliwości (`.png`) odpowiadające każdemu plikowi audio.
+
+### 2. /Inside (Środowisko wewnętrzne)
+Dane zebrane w kontrolowanych warunkach wewnętrznych, podzielone na dwie zmienne eksperymentalne:
+* **`/Depth`**: Analiza wpływu fizycznej głębokości umieszczenia implantu w żelu balistycznym.
+  * **`/Records`**: Nagrania audio (`.wav`) zawierające 4 rodzaje sygnałów (*chirp, ton, ref (odniesienie), rozmowa*) dla 3 głębokości umieszczenia:
+    * `_deep` (Głęboka implementacja)
+    * `_medium` (Średnia implementacja)
+    * `_shallow` (Implementacja płytka)
+    * *Przykładowa nazwa pliku:* `chirp_deep.wav`
+  * **`/Spectrograms`**: Odpowiednie spektrogramy (`.png`) dla każdej odmiany głębokości (np. `chirp_deep.png`).
+
+* **`/Distance`**: Analizuje wpływ odległości źródła dźwięku mierzonej w centymetrach wzdłuż podłoża.
+  * **`/Records`**: Nagrania audio (`.wav`) 4 typów sygnałów dla 5 różnych odległości: `_10`, `_50`, `_150`, `_300` i `_600` cm.
+    * *Przykładowa nazwa pliku:* `chirp_10.wav`
+  * **`/Spectrograms`**: Odpowiednie spektrogramy (`.png`) dla każdej zmiany odległości (np. `chirp_10.png`).
+
+### 3. /Outside (Środowisko zewnętrzne)
+* Zawiera **dokładnie taką samą strukturę katalogów, typy sygnałów i konwencje nazewnictwa plików** jak katalog `/Inside`. Ten podfolder stanowi replikację całego eksperymentu w warunkach rzeczywistego hałasu środowiskowego na zewnątrz i czynników zewnętrznych.
+
+## Szczegóły techniczne
+* **Format audio:** Bezstratny format pliku audio Waveform (`.wav`)
+* **Format wizualizacji:** Spektrogramy w formacie Portable Network Graphics (`.png`) do weryfikacji sygnatury akustycznej.
+
+# Eksperyment 02: 
+
+# Eksperyment 03: Przekształcenie elektrodynamiczne (wykorzystanie głośnika jako mikrofonu)
+
+Ten folder zawiera prototypy inżynieryjne, kod źródłowy oraz dane eksperymentalne dotyczące **Eksperymentu 03**. Badania pokazują, w jaki sposób standardowe głośniki można przekształcić w mikrofony przy użyciu niedrogich mikrokontrolerów (Arduino Uno) i podstawowych wzmacniaczy operacyjnych.
+
+## Przegląd projektu
+Eksperyment bada możliwość przechwytywania sygnałów akustycznych poprzez wykorzystanie właściwości elektrodynamicznych głośników. Wykorzystując specjalnie skonstruowany obwód kondycjonujący sygnał oraz zoptymalizowane ustawienia przetwornika analogowo-cyfrowego (ADC) w Arduino Uno, pokazujemy, że głośniki mogą rejestrować zrozumiały dźwięk.
+
+## Zawartość repozytorium
+
+### 1. /Programy
+Implementacja sprzętowa i programowa:
+* `sketch_apr30a.ino`: Oprogramowanie układowe Arduino skonfigurowane z niestandardowym preskalerem ADC i ustawieniami szybkiego próbkowania niezbędnymi do rekonstrukcji dźwięku o wysokiej częstotliwości.
+* `main.py`: aplikacja terminalowa oparta na języku Python, służąca do komunikacji ze sprzętem, przetwarzania przychodzącego strumienia bitów i zapisywania zrekonstruowanego dźwięku.
+
+### 2. /Records & /Spectrograms
+Dane są podzielone na dwie fazy badań:
+#### Faza 1: Analiza porównawcza przetworników i wzmacniaczy operacyjnych
+Znajduje się w katalogach `/Speaker_1`, `/Speaker_2` i `/Speaker_3`. W tej fazie oceniana jest wydajność trzech różnych głośników pełniących rolę mikrofonów.
+* **Zmienne sprzętowe:** * **Wzmacniacze operacyjne:** LM358 (ogólnego przeznaczenia) vs. MCP6002 (nowoczesny rail-to-rail).
+    * **Konfiguracje:** odwracająca vs. nieodwracająca.
+* **Konwencja nazewnictwa:** `[OpAmp]_[Config]_[Signal].wav`
+    * *Przykład:* `LM_invert_conversation.wav` (LM358, konfiguracja odwracająca, sygnał mowy).
+
+#### Faza 2: Efektywny zasięg i wykonalność odległości
+Znajduje się w katalogu `/Distance`. Ta faza skupia się na najbardziej stabilnym przetworniku (głośnik 2) w celu określenia maksymalnej odległości, przy której możliwe jest odzyskanie zrozumiałego sygnału.
+* **Parametry testowe:** Odległości 5, 150, 300 i 600 cm.
+* **Konfiguracja:** Wyłącznie nieodwracająca (na podstawie optymalizacji z etapu 1).
+* **Konwencja nazewnictwa:** `[OpAmp]_noninvert_[Signal]_[Distance].wav`
+    * *Przykład:* `MCP_noninvert_chirp_300.wav` (MCP6002 w odległości 3 metrów).
+
+### 3. /Sample
+Zawiera oryginalne sygnały referencyjne użyte jako źródło audio podczas eksperymentów (`chirp`, `tone`, `conversation`), zapewniając spójność między eksperymentami 01 i 03.
+
+## Główne cele badań
+* **Analiza pasma:** Wykorzystanie sygnałów typu chirp o częstotliwościach od 50 Hz do 10 kHz w celu określenia granic pasma przenoszenia.
+* **Ocena zrozumiałości:** Ocena czystości mowy ludzkiej zarejestrowanej za pomocą elektrodynamicznego urządzenia podsłuchowego.
+* **Optymalizacja sprzętu:** Określenie, w jaki sposób wybór wzmacniacza operacyjnego i topologii obwodu wpływa na zasięg nieuprawnionego podsłuchu.
+
+---
+
 # unconventional-cybersecurity-vulnerabilities
 Research data, scripts (Python, MATLAB), and Arduino firmware evaluating budget DIY side-channel attacks: bioacoustic, optical, and electrodynamic audio signal reconstruction.
 
@@ -12,8 +105,6 @@ The research aspect focuses on the physical reproduction of three distinct metho
 
 ## Engineering & Repository Contents
 This repository contains the full DIY engineering implementation optimized for low cost, demonstrating the feasibility of mass attacks:
-* **`/arduino`** – Firmware code for electrodynamic audio connector retasking.
-* **`/python` & `/matlab`** – Scripts used for signal analysis, noise cleaning, and data visualization.
 * **`/experiment-01`, `/experiment-02`, `/experiment-03`** – Audio recordings and datasets generated during the experiments to allow full reproducibility of the results.
 
 
