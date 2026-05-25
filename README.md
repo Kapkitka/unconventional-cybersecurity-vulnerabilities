@@ -18,7 +18,7 @@ To repozytorium zawiera pełną implementację inżynieryjną typu „zrób to s
 
 Ten folder zawiera zbiór danych, zrekonstruowane nagrania audio oraz spektrogramy wizualne dotyczące **Eksperymentu 01**, w ramach którego oceniano nieuprawnione odzyskiwanie sygnałów audio za pomocą biohybrydowego urządzenia wstrzykującego symulującego implant umieszczony w żelu balistycznym.
 
-## Struktura katalogów i nazewnictwo zbioru danych
+## Zawartość repozytorium
 
 Zbiór danych jest ściśle podzielony na trzy główne kategorie: `Sample`, `Inside` (kontrolowane środowisko wewnętrzne) oraz `Outside` (warunki środowiskowe na zewnątrz).
 
@@ -50,6 +50,44 @@ Dane zebrane w kontrolowanych warunkach wewnętrznych, podzielone na dwie zmienn
 * **Format wizualizacji:** Spektrogramy w formacie Portable Network Graphics (`.png`) do weryfikacji sygnatury akustycznej.
 
 # Eksperyment 02: Mikrofon wizualny
+
+Eksperyment polega na optycznej rekonstrukcji dźwięku poprzez analizę mikrowibracji przedmiotów (paczki chipsów) zarejestrowanych kamerą wideo. Proces odzyskiwania sygnału audio z drgań powierzchni został przeprowadzony przy użyciu metod algorytmicznych analizujących zmiany natężenia pikseli w czasie.
+
+## Zawartość repozytorium
+
+Dane wykorzystane w tym eksperymencie podzielono na dwie główne kategorie: próbki źródłowe użyte do odtwarzania oraz rzeczywiste próby odtworzenia dźwięku w różnych konfiguracjach fizycznych.
+
+#### 1. `/Sample`
+Zawiera oryginalne pliki audio wysokiej jakości, które posłużyły jako źródła dźwięku podczas eksperymentu.
+* **`/Records`**: Pliki audio referencyjne (`Mary.wav`, `Melody.wav`, `Octave.wav`, `Piramid.wav`).
+* **`/Spectrograms`**: Wizualne przedstawienia analizy częstotliwości (`.png`) dla każdej próbki.
+
+#### 2. `/Attempts`
+Zawiera wyniki prób odtworzenia dźwięku, podzielone według materiału źródłowego i testów środowiskowych.
+
+* **`/Melody`, `/Octave`, `/Piramid`**: Próby odtworzenia przy użyciu różnych źródeł audio i fizycznych konfiguracji torebki/źródła.
+    * **`/Records`**: Nagrania wideo torebki z chipsami zarejestrowane przez kamerę.
+        * `*_under`: Źródło dźwięku umieszczone bezpośrednio pod torebką.
+        * `*_distance`: Źródło dźwięku umieszczone w pewnej odległości od torebki.
+        * `*_inside`: Źródło dźwięku umieszczone wewnątrz torebki.
+    * **`/Recovered`**: Pliki audio zrekonstruowane na podstawie danych wideo.
+        * `denoised_*`: Sygnały, które zostały poddane dodatkowej obróbce w celu redukcji szumów.
+    * **`/Spectrograms`**: Wizualne przedstawienia odzyskanego dźwięku (`.png`).
+* **`/Test`**: Dane służące do weryfikacji środowiska i algorytmu.
+    * Zawiera przykładowe nagrania udostępnione przez **MIT** (Massachusetts Institute of Technology).
+    * Źródło: [Dane MIT Visual Microphone](https://people.csail.mit.edu/mrub/VisualMic/#data).
+
+---
+
+## Narzędzia zewnętrzne
+
+Rekonstrukcja dźwięku w tym eksperymencie była możliwa dzięki implementacji algorytmu Visual Microphone na licencji open source.
+
+* **Oprogramowanie do rekonstrukcji:** W projekcie wykorzystano implementację autorstwa **Joela Jose**.
+    * Kod źródłowy: [Visual-Mic autorstwa joeljose](https://github.com/joeljose/Visual-Mic)
+* **Źródła naukowe:** Metodologia opiera się na podstawowych badaniach przeprowadzonych przez Laboratorium Informatyki i Sztucznej Inteligencji MIT (CSAIL):
+    * *Davis, A., Rubinstein, M., Wadhwa, N., Mysore, G. J., Durand, F. i Freeman, W. T. (2014). The Visual Microphone: Passive Recovery of Sound from Video.*
+
 
 # Eksperyment 03: Konwersja głośnika w mikrofon
 
@@ -144,7 +182,49 @@ Data collected under controlled indoor conditions, split into two experimental v
 * **Audio Format:** Lossless Waveform Audio file format (`.wav`)
 * **Visualization Format:** Portable Network Graphics (`.png`) spectrograms for acoustic signature verification.
 
-# Experiment 02: 
+
+
+# Experiment 02: Optical Exploit (The Visual Microphone)
+
+This experiment investigates optical sound recovery by analyzing surface micro-vibrations of a potato chip bag captured on high-frequency video. Audio signals are reconstructed by processing subtle pixel fluctuations using pyramid-based image analysis.
+
+---
+
+## Directory Structure & Dataset Nomenclature
+
+The data for this experiment is organized into two main categories: source samples used for playback and the actual recovery attempts under different physical configurations.
+
+#### 1. `/Sample`
+Contains the original high-quality audio files used as sound sources during the experiment.
+* **`/Records`**: Reference audio files (`Mary.wav`, `Melody.wav`, `Octave.wav`, `Piramid.wav`).
+* **`/Spectrograms`**: Visual frequency analysis representations (`.png`) for each sample.
+
+#### 2. `/Attempts`
+Contains the results of sound recovery attempts, categorized by the source material and environment tests.
+
+* **`/Melody`, `/Octave`, `/Piramid`**: Recovery attempts using different audio sources and physical bag/source setups.
+    * **`/Records`**: Video recordings of the chip bag captured by the camera.
+        * `*_under`: Sound source placed directly beneath the bag.
+        * `*_distance`: Sound source placed at a distance from the bag.
+        * `*_inside`: Sound source placed inside the bag.
+    * **`/Recovered`**: Audio files reconstructed from the video data.
+        * `denoised_*`: Signals that have undergone additional noise reduction processing.
+    * **`/Spectrograms`**: Visual representations of the recovered audio (`.png`).
+
+* **`/Test`**: Environment and algorithm verification data.
+    * Contains sample recordings provided by **MIT** (Massachusetts Institute of Technology).
+    * Source: [MIT Visual Microphone Data](https://people.csail.mit.edu/mrub/VisualMic/#data).
+
+---
+
+## External Tools & Acknowledgments
+
+The audio reconstruction in this experiment was made possible thanks to the open-source implementation of the Visual Microphone algorithm.
+
+* **Reconstruction Software:** This project utilizes the implementation by **Joel Jose**.
+    * Source Code: [Visual-Mic by joeljose](https://github.com/joeljose/Visual-Mic)
+* **Research Reference:** The methodology is based on the foundational research from MIT's Computer Science and Artificial Intelligence Laboratory (CSAIL):
+    * *Davis, A., Rubinstein, M., Wadhwa, N., Mysore, G. J., Durand, F., & Freeman, W. T. (2014). The Visual Microphone: Passive Recovery of Sound from Video.*
 
 # Experiment 03: Electrodynamic Retasking (Speaker-to-Microphone Exploit)
 
